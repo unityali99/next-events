@@ -9,8 +9,7 @@ import {
 import NotFound from "./NotFound";
 import { smallText } from "../utils/styles";
 
-const SingleEvent = ({ eventId }) => {
-  const event = getEventById(eventId);
+const SingleEvent = ({ event }) => {
   if (event) {
     const date = new Date(event.date);
     return (

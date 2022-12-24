@@ -8,6 +8,13 @@ import PlaceHolder from "../components/PlaceHolder";
 
 const FilteredEventsPage = () => {
   const router = useRouter();
+  const allEventsBtn = (
+    <div className="text-center">
+      <button onClick={() => router.replace("/")} className="btn btn-success">
+        Show all events
+      </button>
+    </div>
+  );
   if (router.query.params) {
     const params = router.query.params;
     const year = Number(params[0]);
@@ -19,6 +26,7 @@ const FilteredEventsPage = () => {
       return (
         <React.Fragment>
           <Filter />
+          {allEventsBtn}
           <div className="text-center mt-5 mx-auto alert alert-danger w-25">
             <h5>There are no events specified date</h5>
           </div>
@@ -27,6 +35,7 @@ const FilteredEventsPage = () => {
     return (
       <React.Fragment>
         <Filter />
+        {allEventsBtn}
         <EventList events={filteredEvents} />
       </React.Fragment>
     );
