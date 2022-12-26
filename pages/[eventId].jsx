@@ -15,22 +15,14 @@ const SingleEventPage = ({ event }) => {
   );
 };
 
-export const getStaticPaths = () => {
-  return {
-    paths: [
-      { params: { eventId: "e1" } },
-      { params: { eventId: "e2" } },
-      { params: { eventId: "e3" } },
-    ],
-    fallback: false,
-  };
-};
+export const getServerSideProps = async (context) => {
+  const eventId = context.params.eventId;
 
-export const getStaticProps = (context) => {
-  const event = getEventById(context.params.eventId);
+  const event = getEventById(eventId);
 
   return {
     props: { event },
+    notFound: event ? false : true,
   };
 };
 

@@ -5,7 +5,7 @@ const allEventsPage = (props) => {
   return <EventList events={props.events} />;
 };
 
-export const getStaticProps = () => {
+export const getStaticProps = async () => {
   return {
     props: { events: getAllEvents() },
     revalidate: 10,

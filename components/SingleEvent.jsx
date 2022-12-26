@@ -13,7 +13,7 @@ const SingleEvent = ({ event }) => {
   if (event) {
     const date = new Date(event.date);
     return (
-      <div className="w-100 h-100 position-absolute" s>
+      <div className="w-100 h-100 position-absolute">
         <div
           className="text-center py-4"
           style={{

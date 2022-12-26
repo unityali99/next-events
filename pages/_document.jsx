@@ -22,7 +22,7 @@ export default function Document() {
         />
         <script
           src="https://kit.fontawesome.com/6de1bbeae9.js"
-          crossorigin="anonymous"
+          crossOrigin="anonymous"
           defer
         />
       </body>

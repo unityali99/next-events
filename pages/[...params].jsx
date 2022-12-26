@@ -2,11 +2,10 @@ import { useRouter } from "next/router";
 import React from "react";
 import EventList from "../components/EventList";
 import Filter from "../components/Filter";
-import NotFound from "../components/NotFound";
 import { getFilteredEvents } from "../utils/dummy-data";
 import PlaceHolder from "../components/PlaceHolder";
 
-const FilteredEventsPage = () => {
+const FilteredEventsPage = ({ filteredEvents }) => {
   const router = useRouter();
   const allEventsBtn = (
     <div className="text-center">
@@ -15,13 +14,7 @@ const FilteredEventsPage = () => {
       </button>
     </div>
   );
-  if (router.query.params) {
-    const params = router.query.params;
-    const year = Number(params[0]);
-    const month = Number(params[1]);
-    if (isNaN(year) || isNaN(month)) return <NotFound />;
-    const filteredEvents = getFilteredEvents({ year, month });
-
+  if (filteredEvents) {
     if (filteredEvents.length === 0 || !filteredEvents)
       return (
         <React.Fragment>
@@ -40,12 +33,25 @@ const FilteredEventsPage = () => {
       </React.Fragment>
     );
   }
+
   return (
     <React.Fragment>
       <PlaceHolder shaped={true} />
       <PlaceHolder shaped={true} />
     </React.Fragment>
   );
+};
+
+export const getServerSideProps = async (context) => {
+  console.log(context);
+  const { params } = context.params;
+  const year = Number(params[0]);
+  const month = Number(params[1]);
+  if (isNaN(year) || isNaN(month)) return { notFound: true };
+  const filteredEvents = getFilteredEvents({ year, month });
+  return {
+    props: { filteredEvents },
+  };
 };
 
 export default FilteredEventsPage;

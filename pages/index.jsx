@@ -14,8 +14,7 @@ const EventsHomePage = (props) => {
 
 export default EventsHomePage;
 
-export const getStaticProps = () => {
-  console.log("revalidate");
+export const getStaticProps = async () => {
   return {
     props: { events: getFeaturedEvents() },
     revalidate: 10,
