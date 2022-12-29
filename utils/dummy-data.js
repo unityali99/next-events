@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const DUMMY_EVENTS = [
   {
     id: "e1",
@@ -55,3 +57,17 @@ export function getFilteredEvents(dateFilter) {
 export function getEventById(id) {
   return DUMMY_EVENTS.find((event) => event.id === id);
 }
+
+export async function getAllEventsApi() {
+  const { data } = await axios.get(
+    "https://next-events-6d4c3-default-rtdb.europe-west1.firebasedatabase.app/events.json"
+  );
+
+  const events = [];
+  for (const key in data) {
+    events.push(data[key]);
+  }
+  return events;
+}
+
+export async function getFeaturesEventsApi() {}
