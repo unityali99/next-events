@@ -1,7 +1,7 @@
 import React from "react";
 import EventList from "../components/EventList";
 import Filter from "../components/Filter";
-import { getFeaturedEvents } from "../utils/dummy-data";
+import { getFeaturesEventsApi } from "../utils/dummy-data";
 
 const EventsHomePage = (props) => {
   return (
@@ -15,8 +15,9 @@ const EventsHomePage = (props) => {
 export default EventsHomePage;
 
 export const getStaticProps = async () => {
+  const events = await getFeaturesEventsApi();
   return {
-    props: { events: getFeaturedEvents() },
+    props: { events: events },
     revalidate: 10,
   };
 };

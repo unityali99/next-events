@@ -1,12 +1,13 @@
 import EventList from "../../components/EventList";
-import { getEventsApi } from "../../utils/dummy-data";
+import { getAllEventsApi } from "../../utils/dummy-data";
 
 const allEventsPage = (props) => {
   return <EventList events={props.events} />;
 };
 
 export const getStaticProps = async () => {
-  const events = await getEventsApi();
+  const events = await getAllEventsApi();
+
   return {
     props: { events: events },
     revalidate: 10,

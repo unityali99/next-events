@@ -21,7 +21,7 @@ const FilteredEventsPage = ({ filteredEvents }) => {
           <Filter />
           {allEventsBtn}
           <div className="text-center mt-5 mx-auto alert alert-danger w-25">
-            <h5>There are no events specified date</h5>
+            <h5>There are no events on the specified date</h5>
           </div>
         </React.Fragment>
       );

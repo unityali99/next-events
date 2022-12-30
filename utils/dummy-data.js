@@ -60,14 +60,21 @@ export function getEventById(id) {
 
 export async function getAllEventsApi() {
   const { data } = await axios.get(
-    "https://next-events-6d4c3-default-rtdb.europe-west1.firebasedatabase.app/events.json"
+    "https://next-events-6d4c3-default-rtdb.europe-west1.firebasedatabase.app/.json"
   );
 
   const events = [];
   for (const key in data) {
     events.push(data[key]);
   }
+  console.log(events);
   return events;
 }
 
-export async function getFeaturesEventsApi() {}
+export async function getFeaturesEventsApi() {
+  const allEvents = await getAllEventsApi();
+
+  const featuredEvents = allEvents.filter((value) => value.isFeatured);
+
+  return featuredEvents;
+}
