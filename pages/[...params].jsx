@@ -1,12 +1,18 @@
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useState } from "react";
 import EventList from "../components/EventList";
 import Filter from "../components/Filter";
-import { getFilteredEvents } from "../utils/dummy-data";
+import { getFilteredEvents } from "../utils/api";
 import PlaceHolder from "../components/PlaceHolder";
 
-const FilteredEventsPage = ({ filteredEvents }) => {
+const FilteredEventsPage = () => {
+  const [filteredEvents, setFilteredEvents] = useState();
   const router = useRouter();
+
+  const year = router.query.params[0];
+  const month = router.query.params[1];
+  console.log(params);
+  setFilteredEvents(getFilteredEvents(year, month));
   const allEventsBtn = (
     <div className="text-center">
       <button onClick={() => router.replace("/")} className="btn btn-success">
@@ -40,18 +46,6 @@ const FilteredEventsPage = ({ filteredEvents }) => {
       <PlaceHolder shaped={true} />
     </React.Fragment>
   );
-};
-
-export const getServerSideProps = async (context) => {
-  console.log(context);
-  const { params } = context.params;
-  const year = Number(params[0]);
-  const month = Number(params[1]);
-  if (isNaN(year) || isNaN(month)) return { notFound: true };
-  const filteredEvents = getFilteredEvents({ year, month });
-  return {
-    props: { filteredEvents },
-  };
 };
 
 export default FilteredEventsPage;

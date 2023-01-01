@@ -1,7 +1,7 @@
 import ReactPlaceholder from "react-placeholder/lib";
 import Placeholder from "../components/PlaceHolder";
 import SingleEvent from "../components/SingleEvent";
-import { getEventById } from "../utils/dummy-data";
+import { getEventById } from "../utils/api";
 
 const SingleEventPage = ({ event }) => {
   return (
@@ -18,7 +18,7 @@ const SingleEventPage = ({ event }) => {
 export const getServerSideProps = async (context) => {
   const eventId = context.params.eventId;
 
-  const event = getEventById(eventId);
+  const event = await getEventById(eventId);
 
   return {
     props: { event },
