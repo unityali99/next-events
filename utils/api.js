@@ -8,7 +8,6 @@ export async function getAllEvents() {
   for (const key in data) {
     events.push(data[key]);
   }
-  console.log(events);
   return events;
 }
 
@@ -19,7 +18,7 @@ export async function getFeaturesEvents() {
   return featuredEvents;
 }
 
-export async function getFilteredEvents({ year, month }) {
+export async function getFilteredEvents(year, month) {
   const allEvents = await getAllEvents();
 
   let filteredEvents = allEvents.filter((event) => {

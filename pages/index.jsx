@@ -10,7 +10,7 @@ const EventsHomePage = (props) => {
       <Filter />
       <Head>
         <meta name="description" content="Ongoing and future events by next." />
-        <title>{"Featured Events"}</title>
+        <title>{"Next Events"}</title>
       </Head>
       <EventList events={props.events} />
     </React.Fragment>
