@@ -3,16 +3,19 @@ import React from "react";
 import EventList from "../components/EventList";
 import Filter from "../components/Filter";
 import { getFeaturesEvents } from "../utils/api";
+import NetworkError from "../components/NetworkError";
+import NewsLetter from "../components/NewsLetter";
 
-const EventsHomePage = (props) => {
+const EventsHomePage = ({ events }) => {
   return (
     <React.Fragment>
       <Filter />
       <Head>
         <meta name="description" content="Ongoing and future events by next." />
-        <title>{"Next Events"}</title>
       </Head>
-      <EventList events={props.events} />
+
+      <NewsLetter />
+      {events ? <EventList events={events} /> : <NetworkError />}
     </React.Fragment>
   );
 };

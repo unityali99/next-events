@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 const Header = () => (
-  <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav className="navbar navbar-expand-md navbar-dark bg-dark align-items-center">
     <div className="container-fluid">
       <a className="navbar-brand" href="#">
         Events
@@ -18,7 +18,7 @@ const Header = () => (
         <span className="navbar-toggler-icon"></span>
       </button>
       <div className="collapse navbar-collapse" id="navbarText">
-        <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+        <ul className="navbar-nav me-auto mb-2 mb-md-0 align-items-center">
           <li className="nav-item">
             <Link className="nav-link active" aria-current="page" href="/">
               Home
@@ -35,15 +35,16 @@ const Header = () => (
             </Link>
           </li>
         </ul>
-        <form className="d-flex">
+        <form className="d-flex flex-row flex-wrap justify-content-center align-items-baseline">
           <input
-            style={{ width: "16rem" }}
-            className="form-control me-2"
+            className="my-2 search-input form-control me-2"
             type="search"
             placeholder="Search Events"
             aria-label="Search Events"
           />
-          <button className="btn btn-outline-primary text-light">Search</button>
+          <button className="my-2 btn btn-outline-primary text-light">
+            Search
+          </button>
         </form>
       </div>
     </div>

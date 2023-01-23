@@ -13,15 +13,15 @@ const Filter = () => {
   };
   return (
     <div
-      className="row justify-content-center align-items-center mx-auto my-3"
+      className=" d-flex flex-row flex-wrap justify-content-center align-items-center mx-auto my-3 p-3 p-lg-0"
       style={{ ...boxShadow, width: "40%" }}
     >
       <select
         onChange={(e) => setYear(e.target.value)}
-        className="w-25 m-3 form-control form-control-lg"
+        className="w-auto m-3 form-control form-control-lg"
       >
         <option selected disabled>
-          Select a year
+          Year
         </option>
         <option>2022</option>
         <option>2021</option>
@@ -30,10 +30,10 @@ const Filter = () => {
         onChange={(e) => {
           setMonth(e.target.value);
         }}
-        className="w-25 m-3 form-control form-control-lg"
+        className="w-auto m-3 form-control form-control-lg"
       >
         <option selected disabled>
-          Select a month
+          Month
         </option>
         {months.map((value, index) => (
           <option value={index + 1} key={index}>
@@ -43,7 +43,7 @@ const Filter = () => {
       </select>
       <button
         disabled={year && month ? false : true}
-        className="btn btn-primary"
+        className="btn btn-primary mr-2"
         style={{ width: "10rem" }}
         onClick={handleFilter}
       >

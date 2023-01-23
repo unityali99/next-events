@@ -1,7 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import React from "react";
-import { getEventById } from "../utils/api";
 import {
   faCalendarWeek,
   faLocationPin,

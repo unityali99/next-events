@@ -5,10 +5,16 @@ import Filter from "../components/Filter";
 import { getFilteredEvents } from "../utils/api";
 import PlaceHolder from "../components/PlaceHolder";
 import NotFound from "../components/NotFound";
+import Head from "next/head";
 
 const FilteredEventsPage = () => {
   const [filteredEvents, setFilteredEvents] = useState();
   const router = useRouter();
+  const HeadData = () => (
+    <Head>
+      <title>Filtered Events</title>
+    </Head>
+  );
   const allEventsBtn = useMemo(
     () => (
       <div className="text-center">
@@ -32,10 +38,10 @@ const FilteredEventsPage = () => {
   }, [router.query.params]);
 
   if (filteredEvents) {
-    console.log(filteredEvents);
     if (filteredEvents.length === 0 || !filteredEvents)
       return (
         <React.Fragment>
+          <HeadData />
           <Filter />
           {allEventsBtn}
           <div className="text-center mt-5 mx-auto alert alert-danger w-25">
@@ -45,6 +51,7 @@ const FilteredEventsPage = () => {
       );
     return (
       <React.Fragment>
+        <HeadData />
         <Filter />
         {allEventsBtn}
         <EventList events={filteredEvents} />

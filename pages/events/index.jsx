@@ -1,9 +1,10 @@
 import Head from "next/head";
 import React from "react";
 import EventList from "../../components/EventList";
+import NetworkError from "../../components/NetworkError";
 import { getAllEvents } from "../../utils/api";
 
-const allEventsPage = (props) => {
+const allEventsPage = ({ events }) => {
   return (
     <React.Fragment>
       <Head>
@@ -13,7 +14,7 @@ const allEventsPage = (props) => {
         />
         <title>{"All Events"}</title>
       </Head>
-      <EventList events={props.events} />
+      {events ? <EventList events={events} /> : <NetworkError />}
     </React.Fragment>
   );
 };
