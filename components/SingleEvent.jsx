@@ -7,8 +7,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import NotFound from "./NotFound";
 import { smallText } from "../utils/styles";
+import Comments from "./Comments";
 
-const SingleEvent = ({ event }) => {
+const SingleEvent = ({ event, comments }) => {
   if (event) {
     const date = new Date(event.date);
     return (
@@ -71,6 +72,7 @@ const SingleEvent = ({ event }) => {
             </div>
           </div>
         </div>
+        <Comments comments={comments} />
       </div>
     );
   }

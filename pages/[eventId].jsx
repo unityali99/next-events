@@ -21,8 +21,7 @@ const SingleEventPage = ({ event, comments }) => {
         ready={event}
         customPlaceholder={<Placeholder />}
       >
-        <SingleEvent event={event} />
-        <Comments comments={comments} />
+        <SingleEvent comments={comments} event={event} />
       </ReactPlaceholder>
     </React.Fragment>
   );

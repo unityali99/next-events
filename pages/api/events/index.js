@@ -1,4 +1,4 @@
-import { child } from "firebase/database";
+import { child, get } from "firebase/database";
 import { dbRef } from "../../../utils/api";
 
 async function handleEvents(req, res) {
