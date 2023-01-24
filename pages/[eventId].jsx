@@ -1,11 +1,12 @@
 import Head from "next/head";
 import React from "react";
 import ReactPlaceholder from "react-placeholder/lib";
+import Comments from "../components/Comments";
 import Placeholder from "../components/PlaceHolder";
 import SingleEvent from "../components/SingleEvent";
 import { getEventById } from "../utils/api";
 
-const SingleEventPage = ({ event }) => {
+const SingleEventPage = ({ event, comments }) => {
   return (
     <React.Fragment>
       <Head>
@@ -21,6 +22,7 @@ const SingleEventPage = ({ event }) => {
         customPlaceholder={<Placeholder />}
       >
         <SingleEvent event={event} />
+        <Comments comments={comments} />
       </ReactPlaceholder>
     </React.Fragment>
   );

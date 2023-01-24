@@ -1,20 +1,12 @@
-import { initializeApp } from "firebase/app";
-import { getDatabase, push, ref } from "firebase/database";
+import { child, push } from "firebase/database";
 import { generate } from "shortid";
-import { dbId, dbUrl } from "../../utils/api";
+import { dbRef } from "../../utils/api";
 
 async function handleUsers(req, res) {
-  const firebaseConfig = {
-    databaseURL: dbUrl,
-    projectId: dbId,
-  };
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
-
   if (req.method === "POST") {
     const id = generate();
     const user = { [id]: req.body.email };
-    await push(ref(db, "users"), user)
+    await push(child(dbRef, "users"), user)
       .then(() => {
         res
           .status(201)

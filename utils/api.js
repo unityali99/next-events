@@ -1,11 +1,20 @@
 import axios from "axios";
+import { getDatabase, ref } from "firebase/database";
+import { initializeApp } from "firebase/app";
 
-export const dbUrl =
+const dbUrl =
   "https://next-events-6d4c3-default-rtdb.europe-west1.firebasedatabase.app/";
 
 export const apiUrl = "http://localhost:3000/api";
 
-export const dbId = "next-events-6d4c3";
+const dbId = "next-events-6d4c3";
+
+const firebaseConfig = {
+  databaseURL: dbUrl,
+  projectId: dbId,
+};
+const app = initializeApp(firebaseConfig);
+export const dbRef = ref(getDatabase(app));
 
 export async function getAllEvents() {
   try {
