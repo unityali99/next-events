@@ -1,12 +1,12 @@
 import { initializeApp } from "firebase/app";
 import { getDatabase, push, ref } from "firebase/database";
 import { generate } from "shortid";
+import { dbId, dbUrl } from "../../utils/api";
 
 async function handleUsers(req, res) {
   const firebaseConfig = {
-    databaseURL:
-      "https://next-events-6d4c3-default-rtdb.europe-west1.firebasedatabase.app/",
-    projectId: "next-events-6d4c3",
+    databaseURL: dbUrl,
+    projectId: dbId,
   };
   const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);

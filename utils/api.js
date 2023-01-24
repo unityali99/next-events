@@ -1,10 +1,15 @@
 import axios from "axios";
 
+export const dbUrl =
+  "https://next-events-6d4c3-default-rtdb.europe-west1.firebasedatabase.app/";
+
+export const apiUrl = "http://localhost:3000/api";
+
+export const dbId = "next-events-6d4c3";
+
 export async function getAllEvents() {
   try {
-    const { data } = await axios.get(
-      "https://next-events-6d4c3-default-rtdb.europe-west1.firebasedatabase.app/events.json"
-    );
+    const { data } = await axios.get(dbUrl + "/events.json");
     const events = [];
     for (const key in data) {
       events.push(data[key]);
@@ -43,7 +48,7 @@ export async function getEventById(id) {
 }
 
 export async function saveUser(email) {
-  const response = await axios.post("http://localhost:3000/api/users", {
+  const response = await axios.post(apiUrl + "/users", {
     email,
   });
   if (response.status == 503) {
