@@ -41,6 +41,32 @@ function Comments({ comments }) {
           Submit
         </button>
       </div>
+      <div className="row col-7 mx-auto my-4">
+        <div className="bg-gradient rounded-3 border border-success border-opacity-25 border-2 px-4 py-3 my-3 text-wrap ">
+          <p className="fw-semibold">
+            {"This event is needed for people with thoughts .........."}
+          </p>
+          <span className="float-end text-muted">
+            <i>By Ali Ahmadi</i>
+          </span>
+        </div>
+        <div className="bg-gradient rounded-3 border border-success border-opacity-25 border-2 px-4 py-3 my-3 text-wrap ">
+          <p className="fw-semibold">
+            {"This event is needed for people with thoughts .........."}
+          </p>
+          <span className="float-end text-muted">
+            <i>By Ali Ahmadi</i>
+          </span>
+        </div>
+        <div className="bg-gradient rounded-3 border border-success border-opacity-25 border-2 px-4 py-3 my-3 text-wrap ">
+          <p className="fw-semibold">
+            {"This event is needed for people with thoughts .........."}
+          </p>
+          <span className="float-end text-muted">
+            <i>By Ali Ahmadi</i>
+          </span>
+        </div>
+      </div>
     </div>
   );
 }
