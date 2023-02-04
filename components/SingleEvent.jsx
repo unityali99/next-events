@@ -7,7 +7,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import NotFound from "./NotFound";
 import { smallText } from "../utils/styles";
-import Comments from "./Comments";
+import CommentsForm from "./CommentsForm";
+import ShowComment from "./ShowComment";
 
 const SingleEvent = ({ event, comments }) => {
   if (event) {
@@ -72,7 +73,8 @@ const SingleEvent = ({ event, comments }) => {
             </div>
           </div>
         </div>
-        <Comments comments={comments} />
+        <CommentsForm eventId={event.id} />
+        {comments && <ShowComment comments={comments} />}
       </div>
     );
   }

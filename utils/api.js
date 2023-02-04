@@ -1,36 +1,18 @@
 import axios from "axios";
-import { getDatabase, ref } from "firebase/database";
-import { initializeApp } from "firebase/app";
 
-const dbUrl =
-  "https://next-events-6d4c3-default-rtdb.europe-west1.firebasedatabase.app/";
+export const uri = "mongodb://localhost:27017";
+
+export const dbName = "Next-Events";
 
 export const apiUrl = "http://localhost:3000/api";
 
-const dbId = "next-events-6d4c3";
-
-const firebaseConfig = {
-  databaseURL: dbUrl,
-  projectId: dbId,
-};
-const app = initializeApp(firebaseConfig);
-export const dbRef = ref(getDatabase(app));
-
 export async function getAllEvents() {
-  try {
-    const { data } = await axios.get(dbUrl + "/events.json");
-    const events = [];
-    for (const key in data) {
-      events.push(data[key]);
-    }
-    return events;
-  } catch (err) {
-    console.log(err.message);
-    return null;
-  }
+  const response = await axios.get(apiUrl + "/events");
+  if (response.status == 500) return { message: "Error while fetching events" };
+  return Object.values(response.data.events);
 }
 
-export async function getFeaturesEvents() {
+export async function getFeaturedEvents() {
   const allEvents = await getAllEvents();
   if (!allEvents) return null;
   const featuredEvents = allEvents.filter((value) => value.isFeatured);
@@ -64,4 +46,20 @@ export async function saveUser(email) {
     throw new Error(response.data.message);
   }
   return response;
+}
+
+export async function saveComment(eventId, fullName, email, comment) {
+  const response = await axios.post(apiUrl + "/comments/" + eventId, {
+    fullName,
+    email,
+    comment,
+  });
+  if (response.status == 503) throw new Error(response.data.message);
+  return response;
+}
+
+export async function getComments(eventId) {
+  const response = await axios.get(apiUrl + "/comments/" + eventId);
+  if (response.status == 500) throw new Error(response.data.message);
+  return Object.values(response.data.comments);
 }

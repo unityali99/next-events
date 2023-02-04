@@ -1,10 +1,9 @@
 import Head from "next/head";
 import React from "react";
 import ReactPlaceholder from "react-placeholder/lib";
-import Comments from "../components/Comments";
 import Placeholder from "../components/PlaceHolder";
 import SingleEvent from "../components/SingleEvent";
-import { getEventById } from "../utils/api";
+import { getComments, getEventById } from "../utils/api";
 
 const SingleEventPage = ({ event, comments }) => {
   return (
@@ -31,9 +30,14 @@ export const getServerSideProps = async (context) => {
   const eventId = context.params.eventId;
 
   const event = await getEventById(eventId);
-
+  let comments;
+  try {
+    comments = await getComments(eventId);
+  } catch (err) {
+    comments = null;
+  }
   return {
-    props: { event },
+    props: { event, comments },
     notFound: event ? false : true,
   };
 };
