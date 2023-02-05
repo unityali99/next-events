@@ -4,7 +4,9 @@ import { POST } from "../../utils/aliases";
 import { dbName, uri } from "../../utils/api";
 
 async function handleUsers(req, res) {
-  const client = new MongoClient(uri, { useNewUrlParser: true });
+  const client = new MongoClient(uri, {
+    useNewUrlParser: true,
+  });
 
   if (req.method === POST) {
     try {

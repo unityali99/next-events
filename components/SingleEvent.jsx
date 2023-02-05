@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   faCalendarWeek,
   faLocationPin,
@@ -10,7 +10,15 @@ import { smallText } from "../utils/styles";
 import CommentsForm from "./CommentsForm";
 import ShowComment from "./ShowComment";
 
-const SingleEvent = ({ event, comments }) => {
+const SingleEvent = (props) => {
+  const [event, setEvent] = useState();
+  const [comments, setComments] = useState();
+
+  useEffect(() => {
+    setEvent(props.event);
+    setComments(props.comments);
+  }, []);
+
   if (event) {
     const date = new Date(event.date);
     return (
@@ -52,24 +60,24 @@ const SingleEvent = ({ event, comments }) => {
           </h5>
           <div className="text-center py-3">
             <div className="d-inline-block mx-4">
-              <p style={smallText}>
+              <span style={smallText}>
                 <FontAwesomeIcon
                   color="#5A5A5A"
                   icon={faCalendarWeek}
                   className="mx-2"
                 />
                 Date: {date.toLocaleDateString()}
-              </p>
+              </span>
             </div>
             <div className="d-inline-block mx-4">
-              <p style={smallText}>
+              <span style={smallText}>
                 <FontAwesomeIcon
                   color="#5A5A5A"
                   icon={faLocationPin}
                   className="mx-2"
                 />
                 Address: {event.location}
-              </p>
+              </span>
             </div>
           </div>
         </div>

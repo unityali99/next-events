@@ -3,7 +3,9 @@ import { GET } from "../../../utils/aliases";
 import { dbName, uri } from "../../../utils/api";
 
 async function handleEvents(req, res) {
-  const client = new MongoClient(uri, { useNewUrlParser: true });
+  const client = new MongoClient(uri, {
+    useNewUrlParser: true,
+  });
 
   if (req.method === GET) {
     try {

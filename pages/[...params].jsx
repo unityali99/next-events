@@ -6,6 +6,7 @@ import { getFilteredEvents } from "../utils/api";
 import PlaceHolder from "../components/PlaceHolder";
 import NotFound from "../components/NotFound";
 import Head from "next/head";
+import Alert from "./../components/Alert";
 
 const FilteredEventsPage = () => {
   const [filteredEvents, setFilteredEvents] = useState();
@@ -44,9 +45,11 @@ const FilteredEventsPage = () => {
           <HeadData />
           <Filter />
           {allEventsBtn}
-          <div className="text-center mt-5 mx-auto alert alert-danger w-25">
-            <h5>There are no events on the specified date</h5>
-          </div>
+          <Alert
+            className="alert alert-danger mx-auto col-7 col-sm-5 col-md-4 col-lg-3 text-center mt-5"
+            message="There are no events on the specified date"
+            dismissible={false}
+          />
         </React.Fragment>
       );
     return (

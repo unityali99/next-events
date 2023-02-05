@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const uri = "mongodb://localhost:27017";
 
-export const dbName = "Next-Events";
+export const dbName = "events";
 
 export const apiUrl = "http://localhost:3000/api";
 

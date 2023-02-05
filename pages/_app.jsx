@@ -13,7 +13,9 @@ export default function App({ Component, pageProps }) {
         <meta name="description" content="Nextjs events for you." />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
-      <Component {...pageProps} />
+      <React.StrictMode>
+        <Component {...pageProps} />
+      </React.StrictMode>
     </Layout>
   );
 }
