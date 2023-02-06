@@ -6,7 +6,9 @@ import { getFilteredEvents } from "../utils/api";
 import PlaceHolder from "../components/PlaceHolder";
 import NotFound from "../components/NotFound";
 import Head from "next/head";
-import Alert from "./../components/Alert";
+import dynamic from "next/dynamic";
+
+const Alert = dynamic(() => import("./../components/Alert"));
 
 const FilteredEventsPage = () => {
   const [filteredEvents, setFilteredEvents] = useState();

@@ -1,8 +1,9 @@
+import dynamic from "next/dynamic";
 import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { saveComment } from "../utils/api";
 import { emailPattern } from "../utils/pattern";
-import Alert from "./Alert";
+const Alert = dynamic(() => import("./Alert"));
 
 function CommentsForm({ eventId }) {
   const {
@@ -31,7 +32,7 @@ function CommentsForm({ eventId }) {
   }
 
   return (
-    <div style={{ backgroundColor: "#9FE2BF" }}>
+    <React.Fragment>
       <div className="col-8 col-sm-7 col-md-6 col-lg-5 mx-auto row justify-content-center py-4">
         <div className="col-12 col-sm-6 mb-3">
           <label for="exampleFormControlInput1" className="form-label">
@@ -134,7 +135,7 @@ function CommentsForm({ eventId }) {
           dismissible={true}
         />
       )}
-    </div>
+    </React.Fragment>
   );
 }
 

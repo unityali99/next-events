@@ -3,8 +3,10 @@ import React from "react";
 import EventList from "../components/EventList";
 import Filter from "../components/Filter";
 import { getFeaturedEvents } from "../utils/api";
-import NetworkError from "../components/NetworkError";
 import NewsLetter from "../components/NewsLetter";
+import dynamic from "next/dynamic";
+
+const NetworkError = dynamic(() => import("../components/NetworkError"));
 
 const EventsHomePage = ({ events }) => {
   return (
@@ -13,7 +15,6 @@ const EventsHomePage = ({ events }) => {
       <Head>
         <meta name="description" content="Ongoing and future events by next." />
       </Head>
-
       <NewsLetter />
       {events ? <EventList events={events} /> : <NetworkError />}
     </React.Fragment>

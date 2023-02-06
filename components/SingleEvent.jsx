@@ -9,6 +9,10 @@ import NotFound from "./NotFound";
 import { smallText } from "../utils/styles";
 import CommentsForm from "./CommentsForm";
 import ShowComment from "./ShowComment";
+import Placeholder from "./PlaceHolder";
+import ReactPlaceholder from "react-placeholder/lib";
+import { TextBlock, TextRow } from "react-placeholder/lib/placeholders";
+import TextPlaceHolder from "./TextPlaceHolder";
 
 const SingleEvent = (props) => {
   const [event, setEvent] = useState();
@@ -81,8 +85,16 @@ const SingleEvent = (props) => {
             </div>
           </div>
         </div>
-        <CommentsForm eventId={event.id} />
-        {comments && <ShowComment comments={comments} />}
+        <div style={{ backgroundColor: "#9FE2BF" }}>
+          <CommentsForm eventId={event.id} />
+          <ReactPlaceholder
+            showLoadingAnimation={true}
+            ready={comments}
+            customPlaceholder={<TextPlaceHolder />}
+          >
+            <ShowComment comments={comments} />
+          </ReactPlaceholder>
+        </div>
       </div>
     );
   }

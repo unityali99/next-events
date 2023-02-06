@@ -3,7 +3,9 @@ import { useRef, useState } from "react";
 import { saveUser } from "../utils/api";
 import { useForm } from "react-hook-form";
 import { emailPattern } from "../utils/pattern";
-import Alert from "./Alert";
+import dynamic from "next/dynamic";
+
+const Alert = dynamic(() => import("./Alert"));
 
 function NewsLetter() {
   const btnRef = useRef();
