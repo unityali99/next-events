@@ -1,15 +1,14 @@
 import { MongoClient } from "mongodb";
 import { GET, POST } from "../../../utils/aliases";
-import { dbName, uri } from "../../../utils/api";
 
 async function handleComments(req, res) {
-  const client = new MongoClient(uri, {
+  const client = new MongoClient(process.env.uri, {
     useNewUrlParser: true,
   });
 
   if (req.method === GET) {
     try {
-      const database = client.db(dbName);
+      const database = client.db(process.env.dbName);
       const collection = database.collection("comments");
       const comments = await collection
         .find({ eventId: req.query.eventId })
@@ -25,7 +24,7 @@ async function handleComments(req, res) {
   }
   if (req.method === POST) {
     try {
-      const database = client.db(dbName);
+      const database = client.db(process.env.dbName);
       const collection = database.collection("comments");
       const response = await collection.insertOne(req.body);
       res

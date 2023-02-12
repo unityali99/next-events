@@ -1,13 +1,7 @@
 import axios from "axios";
 
-export const uri = "mongodb://localhost:27017";
-
-export const dbName = "events";
-
-export const apiUrl = "http://localhost:3000/api";
-
 export async function getAllEvents() {
-  const response = await axios.get(apiUrl + "/events");
+  const response = await axios.get(process.env.apiUrl + "/events");
   if (response.status == 500) return { message: "Error while fetching events" };
   return Object.values(response.data.events);
 }
@@ -39,7 +33,7 @@ export async function getEventById(id) {
 }
 
 export async function saveUser(email) {
-  const response = await axios.post(apiUrl + "/users", {
+  const response = await axios.post(process.env.apiUrl + "/users", {
     email,
   });
   if (response.status == 503) {
@@ -49,17 +43,20 @@ export async function saveUser(email) {
 }
 
 export async function saveComment(eventId, fullName, email, comment) {
-  const response = await axios.post(apiUrl + "/comments/" + eventId, {
-    fullName,
-    email,
-    comment,
-  });
+  const response = await axios.post(
+    process.env.apiUrl + "/comments/" + eventId,
+    {
+      fullName,
+      email,
+      comment,
+    }
+  );
   if (response.status == 503) throw new Error(response.data.message);
   return response;
 }
 
 export async function getComments(eventId) {
-  const response = await axios.get(apiUrl + "/comments/" + eventId);
+  const response = await axios.get(process.env.apiUrl + "/comments/" + eventId);
   if (response.status == 500) throw new Error(response.data.message);
   return Object.values(response.data.comments);
 }

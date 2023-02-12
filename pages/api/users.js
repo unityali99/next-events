@@ -1,16 +1,15 @@
-import { MongoClient, ServerApiVersion } from "mongodb";
+import { MongoClient } from "mongodb";
 import { generate } from "shortid";
 import { POST } from "../../utils/aliases";
-import { dbName, uri } from "../../utils/api";
 
 async function handleUsers(req, res) {
-  const client = new MongoClient(uri, {
+  const client = new MongoClient(process.env.uri, {
     useNewUrlParser: true,
   });
 
   if (req.method === POST) {
     try {
-      const database = client.db(dbName);
+      const database = client.db(process.env.dbName);
       const collection = database.collection("users");
       const id = generate();
       const response = await collection.insertOne({
