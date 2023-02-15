@@ -1,6 +1,6 @@
 import { MongoClient } from "mongodb";
 import { generate } from "shortid";
-import { POST } from "../../utils/aliases";
+import { POST } from "../../../utils/aliases";
 
 async function handleUsers(req, res) {
   const client = new MongoClient(process.env.uri, {
@@ -10,7 +10,7 @@ async function handleUsers(req, res) {
   if (req.method === POST) {
     try {
       const database = client.db(process.env.dbName);
-      const collection = database.collection("users");
+      const collection = database.collection("newsletters");
       const id = generate();
       const response = await collection.insertOne({
         id,
