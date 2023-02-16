@@ -42,6 +42,22 @@ export async function saveUser(email) {
   return response;
 }
 
+export async function registerUser({ fullName, email, password }) {
+  try {
+    const response = await axios.post(process.env.apiUrl + "/users/auth", {
+      fullName,
+      email,
+      password,
+    });
+    if (response.status == 503) {
+      throw new Error(response.data.message);
+    }
+    return response;
+  } catch (err) {
+    return err.message;
+  }
+}
+
 export async function saveComment(eventId, fullName, email, comment) {
   const response = await axios.post(
     process.env.apiUrl + "/comments/" + eventId,

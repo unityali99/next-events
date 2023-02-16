@@ -1,24 +1,44 @@
 import { useForm } from "react-hook-form";
 import { emailPattern } from "../utils/pattern";
+import Alert from "../components/Alert";
+import { DANGER, SUCCESS } from "../utils/aliases";
+import React, { useRef, useState } from "react";
+import { registerUser } from "../utils/api";
 
 function Signup() {
-  const { handleSubmit, register } = useForm();
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm();
+  const btnRef = useRef();
 
-  const submitHandler = (data) => {
-    console.log(data);
+  const [status, setStatus] = useState();
+
+  const submitHandler = async (data) => {
+    try {
+      const response = await registerUser(data);
+      setStatus({ error: false, message: response.data.message });
+      btnRef.current.disabled = true;
+    } catch (err) {
+      setStatus({ error: true, message: err.message });
+    }
   };
+
+  const alertWidth = { width: "100%" };
+
   return (
     <form
-      className="container my-5 col-lg-4 bg-success p-5 rounded-4 bg-opacity-50"
-      onSubmit={handleSubmit}
+      className="container my-4 col-lg-4 col-md-6 col-sm-8 col-9 mt-5 bg-success p-5 rounded-4 bg-opacity-50"
+      onSubmit={handleSubmit(submitHandler)}
     >
-      <div class="mb-3">
-        <label for="exampleInputNames1" class="form-label">
+      <div className="mb-3">
+        <label htmlFor="exampleInputNames1" className="form-label">
           Full Name
         </label>
         <input
           type="fullName"
-          class="form-control"
+          className="form-control"
           id="exampleInputFullName1"
           aria-describedby="fullNameHelp"
           {...register("fullName", {
@@ -30,13 +50,13 @@ function Signup() {
           })}
         />
       </div>
-      <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">
+      <div className="mb-3">
+        <label htmlFor="exampleInputEmail1" className="form-label">
           Email address
         </label>
         <input
           type="email"
-          class="form-control"
+          className="form-control"
           id="exampleInputEmail1"
           aria-describedby="emailHelp"
           {...register("email", {
@@ -44,41 +64,89 @@ function Signup() {
               value: emailPattern,
               message: "Please enter a valid email.",
             },
-            required: "Email is required",
+            required: "Email is required.",
           })}
         />
-        <div id="emailHelp" class="form-text fw-bolder">
+        <div id="emailHelp" className="form-text fw-bolder">
           Your email will not be shared to anyone.
         </div>
-      </div>
-      <div class="mb-3">
-        <label for="exampleInputPassword1" class="form-label">
-          Password
-        </label>
-        <input
-          type="password"
-          class="form-control"
-          id="exampleInputPassword1"
-          {...register("password", {
-            required: "Password is required",
+        <div className="mb-3">
+          <label htmlFor="exampleInputPassword1" className="form-label">
+            Password
+          </label>
+          <input
+            type="password"
+            className="form-control"
+            id="exampleInputPassword1"
+            {...register("password", {
+              required: "Password is required.",
 
-            pattern: {
-              value: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/,
-              message:
-                "Password should be at least 8 characters containing a lowercase letter, an uppercase letter and a digit",
-            },
-          })}
+              pattern: {
+                value: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/,
+                message:
+                  "Password should be at least 8 characters containing a lowercase letter, an uppercase letter and a digit.",
+              },
+            })}
+          />
+        </div>
+        <div className="mb-3 form-check">
+          <input
+            type="checkbox"
+            className="form-check-input"
+            id="exampleCheck1"
+          />
+          <label className="form-check-label" htmlFor="exampleCheck1">
+            Save username and password
+          </label>
+        </div>
+        <button
+          ref={btnRef}
+          type="submit"
+          className="btn btn-primary col-sm-6  col-8 d-block mx-auto"
+        >
+          Submit
+        </button>
+      </div>
+      {errors.fullName && (
+        <Alert
+          dismissible={false}
+          type={DANGER}
+          message={errors.fullName.message}
+          style={alertWidth}
         />
-      </div>
-      <div class="mb-3 form-check">
-        <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-        <label class="form-check-label" for="exampleCheck1">
-          Save username and password
-        </label>
-      </div>
-      <button type="submit" class="btn btn-primary col-5 d-block mx-auto">
-        Submit
-      </button>
+      )}
+      {errors.email && (
+        <Alert
+          dismissible={false}
+          type={DANGER}
+          message={errors.email.message}
+          style={alertWidth}
+        />
+      )}
+      {errors.password && (
+        <Alert
+          dismissible={false}
+          type={DANGER}
+          message={errors.password.message}
+          style={alertWidth}
+        />
+      )}
+      {status?.error && (
+        <Alert
+          dismissible={true}
+          type={DANGER}
+          message={"Registration failed"}
+          style={alertWidth}
+        />
+      )}
+      {status && !status?.error && (
+        <Alert
+          dismissible={true}
+          type={SUCCESS}
+          message={"Registration completed"}
+          style={alertWidth}
+        />
+      )}
     </form>
   );
 }

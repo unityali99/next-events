@@ -1,6 +1,7 @@
 import { MongoClient } from "mongodb";
 import { generate } from "shortid";
 import { POST } from "../../../utils/aliases";
+import { hash } from "bcrypt";
 
 async function handleUsers(req, res) {
   const client = new MongoClient(process.env.uri, {
@@ -12,10 +13,11 @@ async function handleUsers(req, res) {
       const database = client.db(process.env.dbName);
       const collection = database.collection("users");
       const id = generate();
+      const hashedPass = await hash(req.body.password, 10);
       const response = await collection.insertOne({
         id,
         email: req.body.email,
-        password: req.body.password,
+        password: hashedPass,
         iat: Date.now(),
       });
       res

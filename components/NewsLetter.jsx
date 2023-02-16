@@ -4,6 +4,7 @@ import { saveUser } from "../utils/api";
 import { useForm } from "react-hook-form";
 import { emailPattern } from "../utils/pattern";
 import dynamic from "next/dynamic";
+import { DANGER, SUCCESS } from "../utils/aliases";
 
 const Alert = dynamic(() => import("./Alert"));
 
@@ -66,22 +67,18 @@ function NewsLetter() {
       {status && !status?.error && (
         <Alert
           message="Registration Completed"
-          className="col-9 col-sm-6 col-md-5 col-lg-3 alert alert-success alert-dismissible fade show col-3 mx-auto"
+          type={SUCCESS}
           dismissible={true}
           style={{ backgroundColor: "rgba(0,252,25,.6)" }}
         />
       )}
       {status && status?.error && (
-        <Alert
-          message="Registration Failed"
-          className="col-8 col-sm-6 col-md-5 col-lg-3 alert alert-danger alert-dismissible fade show col-3 mx-auto"
-          dismissible={true}
-        />
+        <Alert message="Registration Failed" type={DANGER} dismissible={true} />
       )}
       {errors.email && (
         <Alert
           message={errors.email.message}
-          className="col-9 col-sm-6 col-md-5 col-lg-3 alert alert-danger fade show col-3 mx-auto text-center"
+          type={DANGER}
           dismissible={false}
         />
       )}

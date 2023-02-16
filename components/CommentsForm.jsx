@@ -1,6 +1,7 @@
 import dynamic from "next/dynamic";
 import React, { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
+import { DANGER, SUCCESS } from "../utils/aliases";
 import { saveComment } from "../utils/api";
 import { emailPattern } from "../utils/pattern";
 
@@ -103,21 +104,21 @@ function CommentsForm({ eventId }) {
       {errors.fullName && (
         <Alert
           message={errors.fullName.message}
-          className="col-10 col-sm-7 m-0 mt-3 col-md-6 col-lg-3 alert alert-danger mx-auto text-center"
+          type={DANGER}
           dismissible={false}
         />
       )}
       {errors.email && (
         <Alert
           message={errors.email.message}
-          className="col-10 col-sm-7 m-0 mt-3 col-md-6 col-lg-3 alert alert-danger col-3 mx-auto text-center"
+          type={DANGER}
           dismissible={false}
         />
       )}
       {errors.comment && (
         <Alert
+          type={DANGER}
           message={errors.comment.message}
-          className="col-10 col-sm-7 m-0 mt-3 col-md-6 col-lg-3 alert alert-danger col-3 mx-auto text-center"
           dismissible={false}
         />
       )}
@@ -125,14 +126,14 @@ function CommentsForm({ eventId }) {
         <Alert
           style={{ backgroundColor: "rgba(0,252,25,.6)" }}
           message="Comment submitted successfully"
-          className="col-10 col-sm-7 col-md-6 col-lg-3 alert alert-success alert-dismissible fade show col-3 mx-auto text-center m-0"
+          type={SUCCESS}
           dismissible={true}
         />
       )}
       {status && status?.error && (
         <Alert
+          type={DANGER}
           message="Comment submission failed"
-          className="col-10 col-sm-7 col-md-6 col-lg-3 alert alert-danger alert-dismissible fade show col-3 mx-auto text-center"
           dismissible={true}
         />
       )}
