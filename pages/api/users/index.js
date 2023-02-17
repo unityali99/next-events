@@ -2,7 +2,7 @@ import { MongoClient } from "mongodb";
 import { generate } from "shortid";
 import { POST } from "../../../utils/aliases";
 
-async function handleUsers(req, res) {
+async function handleNewsletter(req, res) {
   const client = new MongoClient(process.env.uri, {
     useNewUrlParser: true,
   });
@@ -27,4 +27,4 @@ async function handleUsers(req, res) {
   }
 }
 
-export default handleUsers;
+export default handleNewsletter;

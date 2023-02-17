@@ -3,7 +3,7 @@ import { generate } from "shortid";
 import { POST } from "../../../utils/aliases";
 import { hash } from "bcrypt";
 
-async function handleUsers(req, res) {
+async function handleRegistration(req, res) {
   const client = new MongoClient(process.env.uri, {
     useNewUrlParser: true,
   });
@@ -16,6 +16,7 @@ async function handleUsers(req, res) {
       const hashedPass = await hash(req.body.password, 10);
       const response = await collection.insertOne({
         id,
+        fullName: req.body.fullName,
         email: req.body.email,
         password: hashedPass,
         iat: Date.now(),
@@ -31,4 +32,4 @@ async function handleUsers(req, res) {
   }
 }
 
-export default handleUsers;
+export default handleRegistration;
