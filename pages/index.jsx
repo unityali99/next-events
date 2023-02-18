@@ -1,5 +1,5 @@
 import Head from "next/head";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import EventList from "../components/EventList";
 import Filter from "../components/Filter";
 import { getFeaturedEvents } from "../utils/api";
@@ -8,7 +8,10 @@ import dynamic from "next/dynamic";
 
 const NetworkError = dynamic(() => import("../components/NetworkError"));
 
-const EventsHomePage = ({ events }) => {
+const EventsHomePage = (prop) => {
+  const [events, setEvent] = useState();
+
+  useEffect(() => setEvent(prop.events), [prop.events]);
   return (
     <React.Fragment>
       <Filter />

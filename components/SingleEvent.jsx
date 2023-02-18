@@ -21,7 +21,7 @@ const SingleEvent = (props) => {
   useEffect(() => {
     setEvent(props.event);
     setComments(props.comments);
-  }, []);
+  }, [props.comments, props.event]);
 
   if (event) {
     const date = new Date(event.date);

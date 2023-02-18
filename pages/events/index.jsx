@@ -1,10 +1,13 @@
 import Head from "next/head";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import EventList from "../../components/EventList";
 import NetworkError from "../../components/NetworkError";
 import { getAllEvents } from "../../utils/api";
 
-const allEventsPage = ({ events }) => {
+const AllEventsPage = (prop) => {
+  const [events, setEvent] = useState();
+
+  useEffect(() => setEvent(prop.events), [prop.events]);
   return (
     <React.Fragment>
       <Head>
@@ -28,4 +31,4 @@ export const getStaticProps = async () => {
   };
 };
 
-export default allEventsPage;
+export default AllEventsPage;
