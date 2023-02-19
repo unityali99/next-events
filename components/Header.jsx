@@ -34,6 +34,11 @@ const Header = () => (
               Register
             </Link>
           </li>
+          <li className="nav-item">
+            <Link className="nav-link" href="/login">
+              Login
+            </Link>
+          </li>
         </ul>
         <form className="d-flex flex-row flex-wrap justify-content-center align-items-baseline">
           <input

@@ -4,6 +4,7 @@ import Alert from "../components/Alert";
 import { DANGER, SUCCESS } from "../utils/aliases";
 import React, { useRef, useState } from "react";
 import { registerUser } from "../utils/api";
+import { isAxiosError } from "axios";
 
 function Signup() {
   const {
@@ -17,8 +18,15 @@ function Signup() {
 
   const submitHandler = async (data) => {
     try {
-      const response = await registerUser(data);
-      setStatus({ error: false, message: response.data.message });
+      const res = await registerUser(data);
+      if (isAxiosError(res))
+        return setStatus({
+          error: true,
+          message: res.response.data.message,
+        });
+
+      setStatus({ error: false, message: res.data.message });
+
       btnRef.current.disabled = true;
     } catch (err) {
       setStatus({ error: true, message: err.message });
@@ -29,7 +37,7 @@ function Signup() {
 
   return (
     <form
-      className="container my-4 col-lg-4 col-md-6 col-sm-8 col-9 mt-5 bg-success p-5 rounded-4 bg-opacity-50"
+      className="container my-4 col-lg-4 col-md-6 col-sm-8 col-9 mt-5 bg-success p-5 rounded-4 bg-opacity-50 border border-2 border-primary border-opacity-25"
       onSubmit={handleSubmit(submitHandler)}
     >
       <div className="mb-3">
@@ -135,7 +143,7 @@ function Signup() {
         <Alert
           dismissible={true}
           type={DANGER}
-          message={"Registration failed"}
+          message={status.message}
           style={alertWidth}
         />
       )}
@@ -143,7 +151,7 @@ function Signup() {
         <Alert
           dismissible={true}
           type={SUCCESS}
-          message={"Registration completed"}
+          message={status.message}
           style={alertWidth}
         />
       )}

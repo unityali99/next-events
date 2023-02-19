@@ -37,7 +37,8 @@ export async function saveUser(email) {
     email,
   });
   if (response.status == 503) {
-    throw new Error(response.data.message);
+    const error = await response.json();
+    return error;
   }
   return response;
 }
@@ -49,26 +50,38 @@ export async function registerUser({ fullName, email, password }) {
       email,
       password,
     });
-    if (response.status == 503) {
-      throw new Error(response.data.message);
-    }
     return response;
   } catch (err) {
-    return err.message;
+    return err;
+  }
+}
+
+export async function loginUser({ email, password }) {
+  try {
+    const response = await axios.post(process.env.apiUrl + "/users/login", {
+      email,
+      password,
+    });
+    return response;
+  } catch (err) {
+    return err;
   }
 }
 
 export async function saveComment(eventId, fullName, email, comment) {
-  const response = await axios.post(
-    process.env.apiUrl + "/comments/" + eventId,
-    {
-      fullName,
-      email,
-      comment,
-    }
-  );
-  if (response.status == 503) throw new Error(response.data.message);
-  return response;
+  try {
+    const response = await axios.post(
+      process.env.apiUrl + "/comments/" + eventId,
+      {
+        fullName,
+        email,
+        comment,
+      }
+    );
+    return response;
+  } catch (err) {
+    return err;
+  }
 }
 
 export async function getComments(eventId) {

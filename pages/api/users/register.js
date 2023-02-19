@@ -12,20 +12,20 @@ async function handleRegistration(req, res) {
     try {
       const database = client.db(process.env.dbName);
       const collection = database.collection("users");
+      const user = await collection.findOne({ email: req.body.email });
+      if (user) return res.status(409).json({ message: "User already exists" });
       const id = generate();
       const hashedPass = await hash(req.body.password, 10);
       const response = await collection.insertOne({
         id,
-        fullName: req.body.fullName,
-        email: req.body.email,
+        fullName: req.body.fullName.trim(),
+        email: req.body.email.trim().toLowerCase(),
         password: hashedPass,
         iat: Date.now(),
       });
-      res
-        .status(201)
-        .json({ message: "Post request was successful", response });
+      res.status(201).json({ message: "Registration completed", response });
     } catch (error) {
-      res.status(503).json({ message: "Post request was failure", error });
+      res.status(503).json({ message: "Registration was failure", error });
     } finally {
       await client.close();
     }
