@@ -1,3 +1,4 @@
+import { isAxiosError } from "axios";
 import Head from "next/head";
 import React from "react";
 import ReactPlaceholder from "react-placeholder/lib";
@@ -30,6 +31,7 @@ export const getServerSideProps = async (context) => {
   const eventId = context.params.eventId;
 
   const event = await getEventById(eventId);
+
   let comments;
   try {
     comments = await getComments(eventId);
@@ -38,7 +40,7 @@ export const getServerSideProps = async (context) => {
   }
   return {
     props: { event, comments },
-    notFound: event ? false : true,
+    notFound: isAxiosError(event) ? true : false,
   };
 };
 

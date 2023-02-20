@@ -7,11 +7,14 @@ export async function getAllEvents() {
 }
 
 export async function getFeaturedEvents() {
-  const allEvents = await getAllEvents();
-  if (!allEvents) return null;
-  const featuredEvents = allEvents.filter((value) => value.isFeatured);
-
-  return featuredEvents;
+  try {
+    const response = await axios.get(
+      process.env.apiUrl + "/events/featuredEvents"
+    );
+    return response.data.events;
+  } catch (err) {
+    return err;
+  }
 }
 
 export async function getFilteredEvents(year, month) {
@@ -26,21 +29,24 @@ export async function getFilteredEvents(year, month) {
   return filteredEvents;
 }
 
-export async function getEventById(id) {
-  const allEvents = await getAllEvents();
-  if (!allEvents) return null;
-  return allEvents.find((event) => event.id === id);
+export async function getEventById(eventId) {
+  try {
+    const response = await axios.get(process.env.apiUrl + `/events/${eventId}`);
+    return response.data.event;
+  } catch (err) {
+    return err;
+  }
 }
 
 export async function saveUser(email) {
-  const response = await axios.post(process.env.apiUrl + "/users", {
-    email,
-  });
-  if (response.status == 503) {
-    const error = await response.json();
-    return error;
+  try {
+    const response = await axios.post(process.env.apiUrl + "/users", {
+      email,
+    });
+    return response;
+  } catch (err) {
+    return err;
   }
-  return response;
 }
 
 export async function registerUser({ fullName, email, password }) {
