@@ -23,7 +23,8 @@ const AllEventsPage = (prop) => {
 };
 
 export const getStaticProps = async () => {
-  const events = await getAllEvents();
+  const response = await getAllEvents();
+  const events = JSON.stringify(response);
 
   return {
     props: { events: events },

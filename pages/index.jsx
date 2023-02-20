@@ -27,7 +27,8 @@ const EventsHomePage = (prop) => {
 export default EventsHomePage;
 
 export const getStaticProps = async () => {
-  const events = await getFeaturedEvents();
+  const response = await getFeaturedEvents();
+  const events = JSON.stringify(response);
   return {
     props: { events: events },
     revalidate: 1800,

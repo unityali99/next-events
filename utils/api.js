@@ -1,9 +1,12 @@
 import axios from "axios";
 
 export async function getAllEvents() {
-  const response = await axios.get(process.env.apiUrl + "/events");
-  if (response.status == 500) return { message: "Error while fetching events" };
-  return Object.values(response.data.events);
+  try {
+    const response = await axios.get(process.env.apiUrl + "/events");
+    return Object.values(response.data.events);
+  } catch (err) {
+    return err;
+  }
 }
 
 export async function getFeaturedEvents() {
