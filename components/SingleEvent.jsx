@@ -9,14 +9,12 @@ import NotFound from "./NotFound";
 import { smallText } from "../utils/styles";
 import CommentsForm from "./CommentsForm";
 import ShowComment from "./ShowComment";
-import Placeholder from "./PlaceHolder";
 import ReactPlaceholder from "react-placeholder/lib";
-import { TextBlock, TextRow } from "react-placeholder/lib/placeholders";
 import TextPlaceHolder from "./TextPlaceHolder";
 
 const SingleEvent = (props) => {
-  const [event, setEvent] = useState();
-  const [comments, setComments] = useState();
+  const [event, setEvent] = useState(null);
+  const [comments, setComments] = useState(null);
 
   useEffect(() => {
     setEvent(props.event);

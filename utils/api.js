@@ -3,7 +3,7 @@ import axios from "axios";
 export async function getAllEvents() {
   try {
     const response = await axios.get(process.env.apiUrl + "/events");
-    return Object.values(response.data.events);
+    return await response.data.events;
   } catch (err) {
     return err;
   }
@@ -14,7 +14,7 @@ export async function getFeaturedEvents() {
     const response = await axios.get(
       process.env.apiUrl + "/events/featuredEvents"
     );
-    return response.data.events;
+    return await response.data.events;
   } catch (err) {
     return err;
   }
@@ -35,7 +35,7 @@ export async function getFilteredEvents(year, month) {
 export async function getEventById(eventId) {
   try {
     const response = await axios.get(process.env.apiUrl + `/events/${eventId}`);
-    return response.data.event;
+    return await response.data.event;
   } catch (err) {
     return err;
   }
@@ -94,7 +94,12 @@ export async function saveComment(eventId, fullName, email, comment) {
 }
 
 export async function getComments(eventId) {
-  const response = await axios.get(process.env.apiUrl + "/comments/" + eventId);
-  if (response.status == 500) throw new Error(response.data.message);
-  return Object.values(response.data.comments);
+  try {
+    const response = await axios.get(
+      process.env.apiUrl + "/comments/" + eventId
+    );
+    return await response.data.comments;
+  } catch (err) {
+    return err;
+  }
 }

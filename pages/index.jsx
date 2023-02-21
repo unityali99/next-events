@@ -8,10 +8,10 @@ import dynamic from "next/dynamic";
 
 const NetworkError = dynamic(() => import("../components/NetworkError"));
 
-const EventsHomePage = (prop) => {
-  const [events, setEvent] = useState();
+const EventsHomePage = (props) => {
+  const [events, setEvent] = useState(null);
 
-  useEffect(() => setEvent(prop.events), [prop.events]);
+  useEffect(() => setEvent(props.events), [props.events]);
   return (
     <React.Fragment>
       <Filter />
@@ -27,8 +27,7 @@ const EventsHomePage = (prop) => {
 export default EventsHomePage;
 
 export const getStaticProps = async () => {
-  const response = await getFeaturedEvents();
-  const events = JSON.stringify(response);
+  const events = await getFeaturedEvents();
   return {
     props: { events: events },
     revalidate: 1800,

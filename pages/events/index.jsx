@@ -5,7 +5,7 @@ import NetworkError from "../../components/NetworkError";
 import { getAllEvents } from "../../utils/api";
 
 const AllEventsPage = (prop) => {
-  const [events, setEvent] = useState();
+  const [events, setEvent] = useState(null);
 
   useEffect(() => setEvent(prop.events), [prop.events]);
   return (
@@ -23,8 +23,7 @@ const AllEventsPage = (prop) => {
 };
 
 export const getStaticProps = async () => {
-  const response = await getAllEvents();
-  const events = JSON.stringify(response);
+  const events = await getAllEvents();
 
   return {
     props: { events: events },
