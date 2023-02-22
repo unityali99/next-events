@@ -54,6 +54,7 @@ export async function saveUser(email) {
 
 export async function registerUser({ fullName, email, password }) {
   try {
+    console.log(process.env.apiUrl);
     const response = await axios.post(process.env.apiUrl + "/users/register", {
       fullName,
       email,
