@@ -14,6 +14,8 @@ async function getEventById(req, res) {
     res.status(200).json({ message: "Get request was successful", event });
   } catch (err) {
     res.status(500).json({ message: "Get request was failure", err });
+  } finally {
+    await client.close();
   }
 }
 

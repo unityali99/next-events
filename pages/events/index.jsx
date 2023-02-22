@@ -5,7 +5,7 @@ import NetworkError from "../../components/NetworkError";
 import { getAllEvents } from "../../utils/api";
 
 const AllEventsPage = (prop) => {
-  const [events, setEvent] = useState(null);
+  const [events, setEvent] = useState();
 
   useEffect(() => setEvent(prop.events), [prop.events]);
   return (

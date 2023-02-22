@@ -13,8 +13,8 @@ import ReactPlaceholder from "react-placeholder/lib";
 import TextPlaceHolder from "./TextPlaceHolder";
 
 const SingleEvent = (props) => {
-  const [event, setEvent] = useState(null);
-  const [comments, setComments] = useState(null);
+  const [event, setEvent] = useState();
+  const [comments, setComments] = useState();
 
   useEffect(() => {
     setEvent(props.event);

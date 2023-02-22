@@ -18,17 +18,20 @@ function Signup() {
 
   const submitHandler = async (data) => {
     try {
+      btnRef.current.disabled = true;
       const res = await registerUser(data);
-      if (isAxiosError(res))
+      if (isAxiosError(res)) {
+        btnRef.current.disabled = false;
+
         return setStatus({
           error: true,
           message: res.response.data.message,
         });
+      }
 
       setStatus({ error: false, message: res.data.message });
-
-      btnRef.current.disabled = true;
     } catch (err) {
+      btnRef.current.disabled = false;
       setStatus({ error: true, message: err.message });
     }
   };
@@ -76,7 +79,7 @@ function Signup() {
           })}
         />
         <div id="emailHelp" className="form-text fw-bolder">
-          Your email will not be shared to anyone.
+          Your email will not be shared with anyone.
         </div>
         <div className="mb-3">
           <label htmlFor="exampleInputPassword1" className="form-label">

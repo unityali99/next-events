@@ -15,9 +15,7 @@ async function handleLogin(req, res) {
       if (!user)
         return res.status(404).json({ message: "User does not exist" });
       if (await compare(req.body.password, user.password))
-        res
-          .status(200)
-          .json({ message: "Login successful", response: { jwt: "haha" } });
+        res.status(200).json({ message: "Login successful" });
       else res.status(401).json({ message: "Incorrect password" });
     } catch (error) {
       res.status(503).json({ message: "Login was failure", error });

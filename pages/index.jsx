@@ -9,7 +9,7 @@ import dynamic from "next/dynamic";
 const NetworkError = dynamic(() => import("../components/NetworkError"));
 
 const EventsHomePage = (props) => {
-  const [events, setEvent] = useState(null);
+  const [events, setEvent] = useState();
 
   useEffect(() => setEvent(props.events), [props.events]);
   return (
