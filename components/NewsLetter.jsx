@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { emailPattern } from "../utils/pattern";
 import dynamic from "next/dynamic";
 import { DANGER, SUCCESS } from "../utils/aliases";
+import { isAxiosError } from "axios";
 
 const Alert = dynamic(() => import("./Alert"));
 
@@ -19,11 +20,21 @@ function NewsLetter() {
 
   async function submitRegistration({ email }) {
     try {
-      const response = await saveUser(email);
       btnRef.current.disabled = true;
-      setStatus({ error: false, message: response.data.message });
+      const res = await saveUser(email);
+      if (isAxiosError(res)) {
+        setStatus({
+          error: true,
+          message: `Network Error (${res.response.status}). Please Contact administrator`,
+        });
+        btnRef.current.disabled = false;
+        return;
+      }
+
+      setStatus({ error: false, message: res.data.message });
     } catch (err) {
-      setStatus({ error: true, message: err.message });
+      btnRef.current.disabled = false;
+      setStatus({ error: true, message: "An unexpected error occured" });
     }
   }
   return (
@@ -66,14 +77,14 @@ function NewsLetter() {
       </div>
       {status && !status?.error && (
         <Alert
-          message="Registration Completed"
+          message={status.message}
           type={SUCCESS}
           dismissible={true}
           style={{ backgroundColor: "rgba(0,252,25,.6)" }}
         />
       )}
       {status && status?.error && (
-        <Alert message="Registration Failed" type={DANGER} dismissible={true} />
+        <Alert message={status.message} type={DANGER} dismissible={true} />
       )}
       {errors.email && (
         <Alert

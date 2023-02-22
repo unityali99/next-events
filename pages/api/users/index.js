@@ -16,11 +16,9 @@ async function handleNewsletter(req, res) {
         id,
         email: req.body.email,
       });
-      res
-        .status(201)
-        .json({ message: "Post request was successful", response });
+      res.status(201).json({ message: "Registration completed", response });
     } catch (error) {
-      res.status(503).json({ message: "Post request was failure", error });
+      res.status(503).json({ message: "Registration was failure", error });
     } finally {
       await client.close();
     }

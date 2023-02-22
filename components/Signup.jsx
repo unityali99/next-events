@@ -20,18 +20,26 @@ function Signup() {
     try {
       btnRef.current.disabled = true;
       const res = await registerUser(data);
+      console.log(res);
       if (isAxiosError(res)) {
+        if (res.response.status == 409)
+          setStatus({
+            error: true,
+            message: res.response.data.message,
+          });
+        else
+          setStatus({
+            error: true,
+            message: `Network Error (${res.response.status}). Please Contact administrator`,
+          });
         btnRef.current.disabled = false;
-        return setStatus({
-          error: true,
-          message: res.response.data.message,
-        });
+        return;
       }
 
       setStatus({ error: false, message: res.data.message });
     } catch (err) {
       btnRef.current.disabled = false;
-      setStatus({ error: true, message: err.message });
+      setStatus({ error: true, message: "An unexpected error occured" });
     }
   };
 
