@@ -5,6 +5,7 @@ import Filter from "../components/Filter";
 import { getFeaturedEvents } from "../utils/api";
 import NewsLetter from "../components/NewsLetter";
 import dynamic from "next/dynamic";
+import { useSession } from "next-auth/react";
 
 const NetworkError = dynamic(() => import("../components/NetworkError"));
 

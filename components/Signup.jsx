@@ -5,7 +5,6 @@ import { DANGER, SUCCESS } from "../utils/aliases";
 import React, { useRef, useState } from "react";
 import { registerUser } from "../utils/api";
 import { isAxiosError } from "axios";
-
 function Signup() {
   const {
     handleSubmit,

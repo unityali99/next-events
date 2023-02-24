@@ -1,13 +1,18 @@
 import { useForm } from "react-hook-form";
 import { emailPattern } from "../utils/pattern";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 const Login = () => {
   const { register, handleSubmit } = useForm();
 
-  const submitHandler = (data) => {
-    console.log(data);
+  const submitHandler = async ({ email, password }) => {
+    const result = await signIn("credentials", {
+      email,
+      password,
+      redirect: false,
+    });
+    console.log(result);
   };
-
   return (
     <form
       className="container my-4 col-lg-4 col-md-6 col-sm-8 col-9 mt-5 bg-primary p-5 rounded-4 bg-opacity-50 border border-2 border-warning border-opacity-50"
