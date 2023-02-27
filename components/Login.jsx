@@ -4,25 +4,30 @@ import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import LogoutFirst from "./LogoutFirst";
+import { useRef, useState } from "react";
 
 const Login = () => {
   const router = useRouter();
   const { register, handleSubmit } = useForm();
   const { status } = useSession();
+  const loginBtnRef = useRef();
+  const [signingIn, setSigningIn] = useState(false);
 
   const submitHandler = async ({ email, password }) => {
+    loginBtnRef.current.disabled = true;
     const result = await signIn("credentials", {
       email,
       password,
       redirect: false,
     });
+    setSigningIn(true);
     router.replace("/");
   };
-  if (status === "authenticated") {
+  if (status === "authenticated" && !signingIn) {
     router.push("/");
     return <LogoutFirst page="login" />;
   }
-  if (status === "unauthenticated")
+  if (status === "unauthenticated" || signingIn)
     return (
       <form
         className="container my-4 col-lg-4 col-md-6 col-sm-8 col-9 mt-5 bg-primary p-5 rounded-4 bg-opacity-50 border border-2 border-warning border-opacity-50"
@@ -70,6 +75,7 @@ const Login = () => {
           </label>
         </div>
         <button
+          ref={loginBtnRef}
           type="submit"
           className="btn btn-primary col-sm-6 col-8 d-block mx-auto"
         >
