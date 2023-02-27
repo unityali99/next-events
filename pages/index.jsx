@@ -5,14 +5,15 @@ import Filter from "../components/Filter";
 import { getFeaturedEvents } from "../utils/api";
 import NewsLetter from "../components/NewsLetter";
 import dynamic from "next/dynamic";
-import { useSession } from "next-auth/react";
 
 const NetworkError = dynamic(() => import("../components/NetworkError"));
 
 const EventsHomePage = (props) => {
   const [events, setEvent] = useState();
 
-  useEffect(() => setEvent(props.events), [props.events]);
+  useEffect(() => {
+    setEvent(props.events);
+  }, [props.events]);
   return (
     <React.Fragment>
       <Filter />
