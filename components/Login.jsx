@@ -5,13 +5,21 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import LogoutFirst from "./LogoutFirst";
 import { useRef, useState } from "react";
+import Alert from "../components/Alert";
+import { DANGER, SUCCESS } from "../utils/aliases";
 
 const Login = () => {
   const router = useRouter();
-  const { register, handleSubmit } = useForm();
-  const { status } = useSession();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+  const { status: sessionStatus } = useSession();
   const loginBtnRef = useRef();
   const [signingIn, setSigningIn] = useState(false);
+  const [status, setStatus] = useState();
+  const alertWidth = { width: "90%" };
 
   const submitHandler = async ({ email, password }) => {
     loginBtnRef.current.disabled = true;
@@ -20,14 +28,26 @@ const Login = () => {
       password,
       redirect: false,
     });
+    if (result.error) {
+      if (result.status === 401)
+        setStatus({ message: "Incorrect username or password.", error: true });
+      else setStatus({ message: "An unexpected error occured.", error: true });
+      loginBtnRef.current.disabled = false;
+      return;
+    }
     setSigningIn(true);
+    setStatus({
+      message:
+        "Successfully logged in. Redirecting to you to the home page ....",
+      error: false,
+    });
     router.replace("/");
   };
-  if (status === "authenticated" && !signingIn) {
+  if (sessionStatus === "authenticated" && !signingIn) {
     router.push("/");
     return <LogoutFirst page="login" />;
   }
-  if (status === "unauthenticated" || signingIn)
+  if (sessionStatus === "unauthenticated" || signingIn)
     return (
       <form
         className="container my-4 col-lg-4 col-md-6 col-sm-8 col-9 mt-5 bg-primary p-5 rounded-4 bg-opacity-50 border border-2 border-warning border-opacity-50"
@@ -91,6 +111,38 @@ const Login = () => {
           </Link>
           now !
         </h6>
+        {status?.error && (
+          <Alert
+            message={status.message}
+            dismissible={true}
+            type={DANGER}
+            style={alertWidth}
+          />
+        )}
+        {status && !status?.error && (
+          <Alert
+            message={status.message}
+            dismissible={false}
+            type={SUCCESS}
+            style={alertWidth}
+          />
+        )}
+        {errors?.email && (
+          <Alert
+            message={errors?.email.message}
+            dismissible={false}
+            type={DANGER}
+            style={alertWidth}
+          />
+        )}
+        {errors?.password && (
+          <Alert
+            message={errors?.password.message}
+            dismissible={false}
+            type={DANGER}
+            style={alertWidth}
+          />
+        )}
       </form>
     );
 };

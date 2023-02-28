@@ -5,7 +5,7 @@ import React from "react";
 const Header = () => {
   const { data: session, status } = useSession();
   const isLoading = status === "loading";
-
+  console.log(session?.user);
   return (
     <nav className="navbar navbar-expand-md navbar-dark bg-dark align-items-center">
       <div className="container-fluid">
@@ -40,7 +40,7 @@ const Header = () => {
             {session && (
               <li className="nav-item">
                 <Link className="nav-link mx-4" href="/profile">
-                  Logged in as {session.user.email}
+                  Logged in as {session.user.name}
                 </Link>
               </li>
             )}

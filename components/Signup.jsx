@@ -48,7 +48,7 @@ function Signup() {
     }
   };
 
-  const alertWidth = { width: "100%" };
+  const alertWidth = { width: "90%" };
 
   if (sessionStatus === "authenticated") {
     router.push("/");

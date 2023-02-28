@@ -20,7 +20,7 @@ const options = {
       async authorize(credentials) {
         const user = await getUserByEmail(credentials.email);
         if (user && (await compare(credentials.password, user.password))) {
-          return user;
+          return { email: user.email, name: user.fullName };
         }
         return null;
       },
