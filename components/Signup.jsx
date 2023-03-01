@@ -25,7 +25,6 @@ function Signup() {
     try {
       btnRef.current.disabled = true;
       const res = await registerUser(data);
-      console.log(res);
       if (isAxiosError(res)) {
         if (res.response.status == 409)
           setStatus({

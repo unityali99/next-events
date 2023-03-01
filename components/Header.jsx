@@ -5,7 +5,6 @@ import React from "react";
 const Header = () => {
   const { data: session, status } = useSession();
   const isLoading = status === "loading";
-  console.log(session?.user);
   return (
     <nav className="navbar navbar-expand-md navbar-dark bg-dark align-items-center">
       <div className="container-fluid">
@@ -31,35 +30,45 @@ const Header = () => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" href="/events">
+              <Link className="nav-link text-nowrap" href="/events">
                 All Events
               </Link>
             </li>
           </ul>
           <ul className="navbar-nav mx-3 align-items-center">
             {session && (
-              <li className="nav-item">
-                <Link className="nav-link mx-4" href="/profile">
-                  Logged in as {session.user.name}
-                </Link>
-              </li>
+              <React.Fragment>
+                <li className="nav-item">
+                  <Link className="nav-link mx-4 text-nowrap" href="/profile">
+                    Logged in as {session.user.name}
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link
+                    className="nav-link btn btn-success px-5 mx-3 my-md-0 my-1"
+                    href="/profile"
+                  >
+                    Profile
+                  </Link>
+                </li>
+              </React.Fragment>
             )}
             {!isLoading && !session && (
               <React.Fragment>
                 <li className="nav-item text-light">
                   <Link
-                    className="nav-link btn btn-success mx-2"
-                    href="/signup"
+                    className="nav-link btn btn-primary mx-2 px-5 my-md-0 my-1"
+                    href="/login"
                   >
-                    Register
+                    Login
                   </Link>
                 </li>
                 <li className="nav-item text-light">
                   <Link
-                    className="nav-link btn btn-primary mx-2 px-3"
-                    href="/login"
+                    className="nav-link btn btn-success px-5 mx-2 my-md-0 my-1"
+                    href="/signup"
                   >
-                    Login
+                    Register
                   </Link>
                 </li>
               </React.Fragment>
@@ -68,7 +77,7 @@ const Header = () => {
               {session && (
                 <Link
                   onClick={signOut}
-                  className="nav-link btn btn-danger text-light"
+                  className="nav-link btn btn-danger text-light my-md-0 my-1 px-4"
                   href="/"
                 >
                   Logout
@@ -76,7 +85,7 @@ const Header = () => {
               )}
             </li>
           </ul>
-          <form className="d-flex flex-row flex-wrap justify-content-center align-items-baseline">
+          {/* <form className="d-flex flex-row flex-wrap justify-content-center align-items-baseline">
             <input
               className="my-2 search-input form-control me-2"
               type="search"
@@ -86,7 +95,7 @@ const Header = () => {
             <button className="my-2 btn btn-outline-primary text-light">
               Search
             </button>
-          </form>
+          </form> */}
         </div>
       </div>
     </nav>
