@@ -1,6 +1,9 @@
 import { MongoClient } from "mongodb";
+import { GET } from "../../../utils/aliases";
 
 async function getEventById(req, res) {
+  if (req.method !== GET)
+    return res.status(405).json({ message: "Method is not allowed" });
   const client = new MongoClient(process.env.uri, { useNewUrlParser: true });
   const { eventId } = req.query;
   try {
