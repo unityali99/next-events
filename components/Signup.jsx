@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { emailPattern } from "../utils/pattern";
+import { emailPattern, passwordPattern } from "../utils/pattern";
 import Alert from "../components/Alert";
 import { DANGER, SUCCESS } from "../utils/aliases";
 import React, { useRef, useState } from "react";
@@ -51,7 +51,7 @@ function Signup() {
 
   if (sessionStatus === "authenticated") {
     router.push("/");
-    return <LogoutFirst page="signup" />;
+    return <LogoutFirst shouldLogin={false} page="signup" />;
   }
 
   if (sessionStatus === "unauthenticated")
@@ -110,7 +110,7 @@ function Signup() {
                 required: "Password is required.",
 
                 pattern: {
-                  value: /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d).{8,}$/,
+                  value: passwordPattern,
                   message:
                     "Password should be at least 8 characters containing a lowercase letter, an uppercase letter and a digit.",
                 },

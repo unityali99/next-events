@@ -45,7 +45,7 @@ const Login = () => {
   };
   if (sessionStatus === "authenticated" && !signingIn) {
     router.push("/");
-    return <LogoutFirst page="login" />;
+    return <LogoutFirst shouldLogin={false} page="login" />;
   }
   if (sessionStatus === "unauthenticated" || signingIn)
     return (
