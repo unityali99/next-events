@@ -4,6 +4,7 @@ import { AiFillWarning } from "react-icons/ai";
 import { RectShape, TextRow } from "react-placeholder/lib/placeholders";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import Link from "next/link";
 
 function Profile() {
   const { data: session, status } = useSession();
@@ -61,9 +62,9 @@ function Profile() {
             <h4 className="card-title ml-5">{session.user.email}</h4>
           </div>
           <div className="card-header bg-info text-center">
-            <button className="btn btn-primary mx-2 my-2">
+            <Link className="btn btn-primary mx-2 my-2" href="/reset-password">
               Reset Password
-            </button>
+            </Link>
           </div>
           <div className="card-header bg-warning text-danger text-center">
             <h6>

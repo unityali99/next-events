@@ -103,3 +103,16 @@ export async function getComments(eventId) {
     return err;
   }
 }
+
+export async function resetPass(email, oldPass, newPass) {
+  try {
+    const response = await axios.put(process.env.apiUrl + "/users/resetPass", {
+      email,
+      oldPass,
+      newPass,
+    });
+    return response;
+  } catch (err) {
+    return err;
+  }
+}

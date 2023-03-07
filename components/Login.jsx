@@ -53,6 +53,7 @@ const Login = () => {
         className="container my-4 col-lg-4 col-md-6 col-sm-8 col-9 mt-5 bg-primary p-5 rounded-4 bg-opacity-50 border border-2 border-warning border-opacity-50"
         onSubmit={handleSubmit(submitHandler)}
       >
+        <div className="display-5 text-center p-3">Login</div>
         <div className="mb-3">
           <label htmlFor="exampleInputEmail1" className="form-label">
             Email address
@@ -114,7 +115,7 @@ const Login = () => {
         {status?.error && (
           <Alert
             message={status.message}
-            dismissible={true}
+            dismissible={false}
             type={DANGER}
             style={alertWidth}
           />

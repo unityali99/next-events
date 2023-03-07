@@ -60,6 +60,7 @@ function Signup() {
         className="container my-4 col-lg-4 col-md-6 col-sm-8 col-9 mt-5 bg-success p-5 rounded-4 bg-opacity-50 border border-2 border-primary border-opacity-25"
         onSubmit={handleSubmit(submitHandler)}
       >
+        <div className="display-5 text-center p-3">Sign Up</div>
         <div className="mb-3">
           <label htmlFor="exampleInputNames1" className="form-label">
             Full Name
@@ -170,7 +171,7 @@ function Signup() {
         )}
         {status?.error && (
           <Alert
-            dismissible={true}
+            dismissible={false}
             type={DANGER}
             message={status.message}
             style={alertWidth}
@@ -178,7 +179,7 @@ function Signup() {
         )}
         {status && !status?.error && (
           <Alert
-            dismissible={true}
+            dismissible={false}
             type={SUCCESS}
             message={status.message}
             style={alertWidth}

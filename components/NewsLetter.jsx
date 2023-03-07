@@ -84,7 +84,7 @@ function NewsLetter() {
         />
       )}
       {status && status?.error && (
-        <Alert message={status.message} type={DANGER} dismissible={true} />
+        <Alert message={status.message} type={DANGER} dismissible={false} />
       )}
       {errors.email && (
         <Alert
